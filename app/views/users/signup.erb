@@ -1,0 +1,16 @@
+<h3>Sign Up </h3>
+
+<%= "Please include email and password" if @user && @user.errors.any? %>
+<form action="/users/signup" method="POST">
+    <label for="name">What's your name?</label>
+    <input type="text" name="name" id="email">
+
+    <label for="email">Enter your parent's email:</label>
+    <input type="text" name="email" id="email">
+
+    <label for="password">Pick a password:</label>
+    <input type="password" name="password" id="password">
+
+    <input type="submit" value="Create My Account">
+
+</form>
