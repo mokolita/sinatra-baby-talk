@@ -1,5 +1,6 @@
 class ApplicationController < Sinatra::Base
     register Sinatra::ActiveRecordExtension
+    enable :sessions 
     set :session_secret, SESSION_SECRET
     set :views, Proc.new { File.join(root, "../views/") }
 
@@ -10,24 +11,33 @@ class ApplicationController < Sinatra::Base
     helpers do 
 
         def logged_in?
-            !!current_user
+            !!session[:id]
         end 
 
         def current_user 
-            @current_user ||= User.find_by(:email => session[:email]) if session[:email]
+           User.find_by(id: session[:id]) 
         end 
 
-        def login(email, password)
-            user = User.find_by(:email => email)
-            if user && user.authenticate(password)
-                session[:email] = user.email
+        def login(params)
+            
+            user = User.find_by(:email => params[:email])
+            if user && user.authenticate(params[:password])
+                session[:id] = user.id
+                redirect '/posts'
             else 
-                redirect 'users/login'
+                @failed = true
+                redirect '/users/login'
             end 
         end 
 
         def logout!
             session.clear
+        end 
+
+        def authenticate 
+            if !logged_in?
+                redirect '/users/login'
+            end 
         end 
     end 
 

@@ -1,4 +1,12 @@
 <h3>All the posts/products/toys</h3>
 
+    <%@post.each do |p| %>
+        <h4><%=p.user.name%></h4>
+        <p><%= p.title%></p>
+        <p><%= p.content%></p>
+    <%end%>
+
 <a href="/posts/new"><button>Review a product</button></a>
-<a href="/logout"><button>Time for a Nap</button></a>
+<form action="/logout" method="post">
+    <input type="hidden" name="_method" value="delete">
+</form>

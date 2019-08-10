@@ -7,6 +7,9 @@
     <label for="password">Enter a password:</label>
     <input type="password" name="password" id="password">
     <br>
+    <% if @failed %>
+        <p class="warning">Sorry baby. Something you entered wasn't quite right. Try again!</p>
+    <%end%>
     <input type="submit" value="Log In">
-
+    
 </form>

@@ -1,16 +1,12 @@
 class UsersController < ApplicationController
 
     get '/users/login' do 
+        @failed = false
         erb :'users/login'
     end 
 
-    post '/users/login' do 
-        @user = User.find_by(email: params[:email])
-        if !@user.nil?
-            erb :"posts/index"
-        else
-            redirect :'users/login'
-        end 
+    post '/users/login' do
+        login(params)
     end 
     
     get '/users/signup' do 
@@ -26,7 +22,7 @@ class UsersController < ApplicationController
             end 
         end  
 
-    get '/logout' do 
+    delete '/logout' do 
         session.clear 
         redirect :'/'
     end 
