@@ -1,0 +1,10 @@
+
+        <h2 class="user-name"><%= @user.name %></h4>
+        <p><% @user.posts.each do |p| %>
+        <div class="individual-post">
+        <h4><%= p.title%></h4>
+        <p><%= p.content%></p>
+        </div>
+        <%end%>
+
+<a href="/posts"><button class="button">Go back</button></a>

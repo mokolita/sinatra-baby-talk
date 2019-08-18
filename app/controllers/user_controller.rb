@@ -13,10 +13,10 @@ class UsersController < ApplicationController
         erb :'users/signup'
     end 
 
-    post '/users/signup' do 
-            @user = User.create(email: params[:email], password: params[:password])
+    post '/users' do 
+            @user = User.create(name: params[:name], email: params[:email], password: params[:password])
             if @user.save
-                redirect 'users/login'
+                login(params)
             else 
                 erb :'users/signup'
             end 
@@ -25,5 +25,10 @@ class UsersController < ApplicationController
     delete '/logout' do 
         session.clear 
         redirect :'/'
+    end 
+
+    get '/users/:id/posts' do
+        @user = User.find_by(id: params[:id])
+        erb :'users/posts'
     end 
 end 

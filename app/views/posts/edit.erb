@@ -1,0 +1,9 @@
+<form action="/posts/<%=@post.id%>" method="POST">
+<input type="hidden" name="_method" value="patch">
+<input type="text" name="title" value=" <%= @post.title %>"> <br>
+<textarea name="content" rows="10" cols="30" placeholder="Tell us what you think">
+    <%= @post.content%>
+</textarea><br>
+<input type="submit" value="Repost It" class="button">
+
+</form>

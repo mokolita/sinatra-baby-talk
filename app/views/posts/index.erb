@@ -1,12 +1,24 @@
 <h3>All the posts/products/toys</h3>
 
+    
     <%@post.each do |p| %>
-        <h4><%=p.user.name%></h4>
+        <div class="individual-post">
+        <h4><a href="users/<%=p.user.id%>/posts"><%= p.user.name %></a></h4>
         <p><%= p.title%></p>
         <p><%= p.content%></p>
+        <% if p.user == current_user%>
+            <a href ="/posts/<%=p.id%>/edit"><button id="edit-button">Edit</button></a>
+            <form action="/posts/<%=p.id%>" method="post">
+                <input type="hidden" name="_method" value="delete">
+                <input type="submit" value="Delete" id="edit-button"><br>
+            </form>
+            <%end%>
+        </div>
     <%end%>
-
-<a href="/posts/new"><button>Review a product</button></a>
+   
+<br>
+<a href="/posts/new"><button class="button">Review a product</button></a>
 <form action="/logout" method="post">
     <input type="hidden" name="_method" value="delete">
+    <input type="submit" value="Logout" class="button">
 </form>

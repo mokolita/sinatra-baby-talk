@@ -2,12 +2,20 @@
 <html lang="en"">
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="../public/css/style.css">
+  <link rel="stylesheet" href="/css/style.css">
   <title>Baby Talk</title>
 </head>
-<body>
+<body class="body">
     <div>
-    <h1>Hey There, Baby! Tell me what you're thinking!</h1>
+    <h1 class="header">Baby Talk</h1>
+    <a href="/" class="header"><button class="button">Home</button></a>
+    <a href="/posts"><button class="button">Read About Products</button></a>
+    <a href="/posts/new"><button class ="button">Review a product</button></a>
+    <form action="/logout" method="post">
+    <input type="hidden" name="_method" value="delete">
+    <input type="submit" value="Logout" class="button">
+    </form>
+    
     <%= yield %>
     </div>
 </body> 

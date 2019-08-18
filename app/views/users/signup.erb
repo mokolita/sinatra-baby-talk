@@ -1,16 +1,21 @@
 <h3>Sign Up </h3>
 
-<%= "Please include email and password" if @user && @user.errors.any? %>
-<form action="/users/signup" method="POST">
-    <label for="name">What's your name?</label>
-    <input type="text" name="name" id="email">
 
-    <label for="email">Enter your parent's email:</label>
-    <input type="text" name="email" id="email">
+<form action="/users" method="POST" class="form">
+<p class="small-font"><%= "Please include email and password" if @user && @user.errors.any? %></p>
+    <label for="name">What's your name?</label><br>
+    <input type="text" name="name" id="email"><br>
 
+    <label for="email">Enter your parent's email:</label><br>
+    <input type="text" name="email" id="email"><br>
+
+    
     <label for="password">Pick a password:</label>
-    <input type="password" name="password" id="password">
+    <div class="small-font">(Password must be 6-20 characters)</div>
+    <input type="password" name="password" id="password"><br>
+    <label for="password">Retype password:</label><br>
+    <input type="password" name="password" id="password"><br>
 
-    <input type="submit" value="Create My Account">
+    <input type="submit" value="Create My Account" class="button">
 
 </form>
