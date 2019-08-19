@@ -10,6 +10,7 @@ class ApplicationController < Sinatra::Base
     end 
 
     get '/home' do 
+        redirect "/" if !logged_in?
         @user = current_user
         erb :'home'
     end 
@@ -47,11 +48,8 @@ class ApplicationController < Sinatra::Base
 
         def authorized?(post)
             authenticate
-             if !post
-                return erb :'error'
-             end
             if current_user != post.user
-                return erb :'error'
+                not_found
             end
         end 
 
@@ -59,7 +57,7 @@ class ApplicationController < Sinatra::Base
         def cleaned_params(params)
             @@safe_params = {}
             params.each{ |k,v| @@safe_params[k]  = Rack::Utils.escape_html(v) }
-            binding.pry
+            #binding.pry
         end 
 
         not_found do

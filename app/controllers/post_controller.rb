@@ -14,8 +14,8 @@ class PostsController < ApplicationController
     post '/posts' do 
         authenticate
         cleaned_params(params)
-        Post.create(title: @@safe_params[:title], content: @@safe_params[:content], user: current_user)
         
+        Post.create(title: @@safe_params["title"], content: @@safe_params["content"], user: current_user)
         redirect '/posts'
     end 
 
@@ -35,18 +35,16 @@ class PostsController < ApplicationController
     end
     
     get '/posts/:id/edit' do 
-        @post = Post.find_by(id: params[:id])
+        @post = Post.find_by(id: params[:id]) || halt(404)
         authorized?(@post)
         erb :'posts/edit'
-       
     end 
 
     patch '/posts/:id' do
         cleaned_params(params)
-        #binding.pry
         @post = Post.find(params[:id]) 
         authorized?(@post)
-        @post.update(title: @@safe_params[:title], content: @@safe_params[:content])
+        @post.update(title: @@safe_params["title"], content: @@safe_params["content"])
         redirect '/posts'
     end 
 
