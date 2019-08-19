@@ -1,8 +1,8 @@
 class PostsController < ApplicationController
 
     get '/posts' do 
+        authenticate 
         @post = Post.all
-
         erb :'posts/index'
     end 
 
@@ -12,7 +12,10 @@ class PostsController < ApplicationController
     end 
 
     post '/posts' do 
-        Post.create(title: cleaned_params[:title], content: cleaned_params[:content], user: current_user)
+        authenticate
+        cleaned_params(params)
+        Post.create(title: @@safe_params[:title], content: @@safe_params[:content], user: current_user)
+        
         redirect '/posts'
     end 
 
@@ -32,15 +35,18 @@ class PostsController < ApplicationController
     end
     
     get '/posts/:id/edit' do 
-        @post = Post.find_by(id: cleaned_params[:id])
-        return authorized?(@post)
+        @post = Post.find_by(id: params[:id])
+        authorized?(@post)
         erb :'posts/edit'
+       
     end 
 
     patch '/posts/:id' do
-        @post = Post.find_by(id: cleaned_params[:id]) 
+        cleaned_params(params)
+        #binding.pry
+        @post = Post.find(params[:id]) 
         authorized?(@post)
-        @post.update(content: cleaned_params[:content])
+        @post.update(title: @@safe_params[:title], content: @@safe_params[:content])
         redirect '/posts'
     end 
 

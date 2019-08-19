@@ -55,9 +55,11 @@ class ApplicationController < Sinatra::Base
             end
         end 
 
+        
         def cleaned_params(params)
-            cleaned_params = {}
-            params.each{ |k,v| cleaned_params[k]  = Rack::Utils.escape_html(v) }
+            @@safe_params = {}
+            params.each{ |k,v| @@safe_params[k]  = Rack::Utils.escape_html(v) }
+            binding.pry
         end 
 
         not_found do
